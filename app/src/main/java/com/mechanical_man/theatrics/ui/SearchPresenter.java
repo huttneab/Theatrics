@@ -40,7 +40,7 @@ public class SearchPresenter implements Presenter<SearchView> {
             if(listResult.isSuccess()){
                 view.showResults(listResult.value().results);
             } else {
-
+                view.showResults(null);
             }
         });
     }

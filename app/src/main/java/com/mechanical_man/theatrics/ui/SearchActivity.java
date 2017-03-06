@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -117,7 +118,14 @@ public class SearchActivity extends AppCompatActivity implements SearchView, Pre
 
     @Override
     public void showResults(List<Movie> movies) {
-        resultsAdapter.setData(movies);
+        if (movies.size() == 0 || null == movies) {
+            Snackbar.make(findViewById(android.R.id.content),
+                    getString(R.string.no_results),
+                    Snackbar.LENGTH_SHORT)
+                    .show();
+        } else {
+            resultsAdapter.setData(movies);
+        }
     }
 
     @NonNull
