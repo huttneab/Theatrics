@@ -1,6 +1,6 @@
 package com.mechanical_man.theatrics.ui;
 
-import com.mechanical_man.theatrics.api.MovieResults;
+import com.mechanical_man.theatrics.api.MovieDetail;
 import com.mechanical_man.theatrics.api.MovieService;
 import com.mechanical_man.theatrics.mvp.Presenter;
 import com.mechanical_man.theatrics.mvp.Result;
@@ -11,21 +11,22 @@ import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.BehaviorSubject;
 
 /**
- * Created by Mechanical Man, LLC on 3/5/17. Theatrics
+ * Created by Mechanical Man, LLC on 3/6/17. Theatrics
  */
 
-public class SearchPresenter implements Presenter<SearchView> {
+public class DetailsPresenter implements Presenter<DetailsView> {
 
-    private BehaviorSubject<Result<MovieResults>> subject = BehaviorSubject.create();
+    private BehaviorSubject<Result<MovieDetail>> subject = BehaviorSubject.create();
     private Disposable disposable;
 
     private final MovieService movieService;
-    public SearchPresenter(MovieService movieService) {
+
+    public DetailsPresenter(MovieService movieService) {
         this.movieService = movieService;
     }
 
-    public void search(String query) {
-        movieService.searchMovies(query)
+    public void getMovieDetails(int movieId) {
+        movieService.getMovieDetails(movieId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(Result::from)
@@ -34,11 +35,10 @@ public class SearchPresenter implements Presenter<SearchView> {
     }
 
     @Override
-    public void attachView(SearchView view) {
-
-        disposable = subject.subscribe(listResult -> {
-            if(listResult.isSuccess()){
-                view.showResults(listResult.value().results);
+    public void attachView(DetailsView view) {
+        disposable = subject.subscribe(detailResult -> {
+            if (detailResult.isSuccess()) {
+                view.showDetails(detailResult.value());
             } else {
 
             }

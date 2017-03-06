@@ -6,23 +6,30 @@ import com.google.gson.annotations.SerializedName;
  * Created by Mechanical Man, LLC on 3/4/17. Theatrics
  */
 
-final class MovieDetail {
-    String title;
+public final class MovieDetail {
 
-    @SerializedName("poster_path")
-    String posterPath;
+    public int id;
 
-    @SerializedName("primary_release_year")
-    String releaseYear;
+    public String title;
+
+    @SerializedName("backdrop_path")
+    public String posterPath;
+
+    @SerializedName("release_date")
+    public String releaseDate;
 
     @SerializedName("overview")
-    String description;
+    public String description;
 
     /**
      * runtime is in minutes
      */
-    int runtime;
+    public int runtime;
 
     @SerializedName("popularity")
-    double rating;
+    public double rating;
+
+    public String getReleaseYear() {
+        return ApiHelper.getReleaseYear(releaseDate);
+    }
 }
