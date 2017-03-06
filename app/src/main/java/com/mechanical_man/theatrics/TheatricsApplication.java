@@ -3,6 +3,7 @@ package com.mechanical_man.theatrics;
 import android.app.Application;
 
 import com.mechanical_man.theatrics.api.ApiModule;
+import com.mechanical_man.theatrics.ui.DetailsActivity;
 import com.mechanical_man.theatrics.ui.SearchActivity;
 
 import javax.inject.Singleton;
@@ -20,6 +21,7 @@ public class TheatricsApplication extends Application {
     public interface ApplicationComponent {
         void inject(TheatricsApplication application);
         void inject(SearchActivity activity);
+        void inject(DetailsActivity activity);
     }
 
     private ApplicationComponent component;

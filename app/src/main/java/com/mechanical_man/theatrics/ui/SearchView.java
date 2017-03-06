@@ -1,6 +1,7 @@
 package com.mechanical_man.theatrics.ui;
 
-import android.graphics.Movie;
+
+import com.mechanical_man.theatrics.api.Movie;
 
 import java.util.List;
 
