@@ -2,6 +2,9 @@ package com.mechanical_man.theatrics;
 
 import android.app.Application;
 
+import com.mechanical_man.theatrics.api.ApiModule;
+import com.mechanical_man.theatrics.ui.SearchActivity;
+
 import javax.inject.Singleton;
 
 import dagger.Component;
@@ -13,9 +16,10 @@ import dagger.Component;
 public class TheatricsApplication extends Application {
 
     @Singleton
-    @Component(modules = TheatricsModule.class)
+    @Component(modules = {TheatricsModule.class, ApiModule.class})
     public interface ApplicationComponent {
         void inject(TheatricsApplication application);
+        void inject(SearchActivity activity);
     }
 
     private ApplicationComponent component;
@@ -25,6 +29,7 @@ public class TheatricsApplication extends Application {
         super.onCreate();
         component = DaggerTheatricsApplication_ApplicationComponent.builder()
                 .theatricsModule(new TheatricsModule(this))
+                .apiModule(new ApiModule())
                 .build();
         component.inject(this);
     }

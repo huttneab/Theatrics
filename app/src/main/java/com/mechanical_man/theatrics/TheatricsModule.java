@@ -1,6 +1,6 @@
 package com.mechanical_man.theatrics;
 
-import android.content.Context;
+import android.app.Application;
 
 import javax.inject.Singleton;
 
@@ -13,14 +13,15 @@ import dagger.Provides;
 
 @Module
 public class TheatricsModule {
-    private final TheatricsApplication application;
+    private final Application application;
 
     public TheatricsModule(TheatricsApplication application) {
         this.application = application;
     }
 
-    @Provides @Singleton @ForApplication
-    Context provideApplicationContext(){
+    @Provides
+    @Singleton
+    Application provideApplication() {
         return application;
     }
 }
