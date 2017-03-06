@@ -64,7 +64,9 @@ public class DetailsActivity extends AppCompatActivity implements DetailsView,
         if (null == savedInstanceState) {
             Intent intent = getIntent();
             presenter.getMovieDetails(intent.getIntExtra("movie_id", 0));
-            collapsingToolbar.setTitle(intent.getStringExtra("movie_title"));
+            String titleText = intent.getStringExtra("movie_title");
+            collapsingToolbar.setTitle(titleText);
+            title.setText(titleText);
         }
     }
 
@@ -96,7 +98,6 @@ public class DetailsActivity extends AppCompatActivity implements DetailsView,
 
     @Override
     public void showDetails(MovieDetail movieDetail) {
-        title.setText(movieDetail.title);
         description.setText(movieDetail.description);
         picasso.load(ApiModule.generatePosterUrl(movieDetail.posterPath)).into(poster);
         runtime.setText(String.valueOf(movieDetail.runtime));

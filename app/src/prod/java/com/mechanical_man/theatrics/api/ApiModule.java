@@ -23,7 +23,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
 public class ApiModule {
-    public static final String apiKey = "1419277c31b39f8ca591b8da5d77b5f8";
     private static final String baseUrl = "https://api.themoviedb.org/3/";
     private static final int cacheSize = 10 * 1024 * 1024; // 10 MiB
 

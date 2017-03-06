@@ -32,6 +32,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
+import static android.view.inputmethod.EditorInfo.IME_ACTION_SEARCH;
+
 public class SearchActivity extends AppCompatActivity implements SearchView, PresenterFactory<SearchPresenter> {
     @Inject PresenterManager presenterManager;
     @Inject MovieService movieService;
@@ -76,14 +78,18 @@ public class SearchActivity extends AppCompatActivity implements SearchView, Pre
 
     @OnEditorAction(R.id.search_edittext)
     public boolean onSearch(TextView v, int actionId, KeyEvent event) {
-        presenter.search(v.getText().toString());
+        if (IME_ACTION_SEARCH == actionId) {
+            presenter.search(v.getText().toString());
 
-        // hide keyaboard so we can see the results
-        recyclerView.requestFocus();
-        InputMethodManager inputMethodManager = (InputMethodManager)
-                getSystemService(Activity.INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
-        return true;
+            // hide keyboard so we can see the results
+            recyclerView.requestFocus();
+            InputMethodManager inputMethodManager = (InputMethodManager)
+                    getSystemService(Activity.INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
